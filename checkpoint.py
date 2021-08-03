@@ -16,7 +16,7 @@ def menu():
 3 - Listar
 4 - Sair""")
         selecao = int(input("Digite a opção desejada: "))
-        while(selecao < 1 and selecao > 4):
+        while(selecao < 1 or selecao > 4):
             print("Opção inválida...")
             selecao = int(input("Digite a opção desejada: "))
         return selecao
@@ -26,30 +26,36 @@ def menu():
 3 - Listar
 4 - Sair""")
         selecao = int(input("Digite a opção desejada: "))
-        while(selecao < 2 and selecao > 4):
+        while(selecao < 2 or selecao > 4):
             print("Opção inválida...")
             selecao = int(input("Digite a opção desejada: "))
         return selecao
 
 while True:
+    print(cadastro)
     selecao = menu()
     
     # Cadastro
     if (selecao == 1):
         while True:
-            rm = input("Digite o rm do aluno: ")
+            rm = input("Digite o rm do aluno: ").split()
+            print(rm)
             while (rm in rmAlunos):
                 print("rm já existe!")
                 rm = input("Digite o rm do aluno: ")
-            if (rm == 0):
+                if (rm == ["0"]):
+                    cadastro = False
+                    break 
+            if (rm == ["0"]):
                 cadastro = False
-                break 
-            rmAlunos.append(rm)
-            serie = int(input("Digite a serie do aluno: ").split()[0])
-            while (serie < 1 or serie > 5):
-                print("Série inválida!")
+                break
+            else:
+                rmAlunos.append(rm)
                 serie = int(input("Digite a serie do aluno: ").split()[0])
-            serieAlunos.append(series[serie-1])
+                while (serie < 1 or serie > 5):
+                    print("Série inválida!")
+                    serie = int(input("Digite a serie do aluno: ").split()[0])
+                serieAlunos.append(series[serie-1])
 
     # Inscrição
     elif (selecao == 2):
@@ -58,5 +64,6 @@ while True:
     elif (selecao == 3):
         ...
     else:
-        print()
+        print(rmAlunos)
+        print(serieAlunos)
         break
