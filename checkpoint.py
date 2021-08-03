@@ -37,22 +37,22 @@ while True:
     # Cadastro
     if (selecao == 1):
         while True:
-            rm = input("Digite o rm do aluno: ").split()
+            rm = input("Digite o rm do aluno: ").strip()
             while (rm in rmAlunos):
                 print("rm já existe!")
-                rm = input("Digite o rm do aluno: ").split()
-                if (rm == ["0"]):
+                rm = input("Digite o rm do aluno: ").strip()
+                if (rm == "0"):
                     cadastro = False
                     break 
-            if (rm == ["0"]):
+            if (rm == "0"):
                 cadastro = False
                 break
             else:
                 rmAlunos.append(rm)
-                serie = int(input("Digite a serie do aluno: ").split()[0])
+                serie = int(input("Digite a serie do aluno: ").strip()[0])
                 while (serie < 2 or serie > 5):
                     print("Série inválida!")
-                    serie = int(input("Digite a serie do aluno: ").split()[0])
+                    serie = int(input("Digite a serie do aluno: ").strip()[0])
                 serieAlunos.append(series[serie-2])
     # Inscrição
     elif (selecao == 2):
