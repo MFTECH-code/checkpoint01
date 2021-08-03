@@ -1,5 +1,5 @@
 oficinas = ("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão artística", "Soletrando", "Leitura dramática", "O corpo fala", "O mundo da imaginação", "Leitura dinâmica", "Criando e recriando com emojis")
-series = ("1ª serie", "2ª serie", "3ª serie", "4ª serie", "5ª serie")
+series = ("2ª serie", "3ª serie", "4ª serie", "5ª serie")
 # Alunos
 rmAlunos = []
 serieAlunos = []
@@ -32,17 +32,15 @@ def menu():
         return selecao
 
 while True:
-    print(cadastro)
     selecao = menu()
     
     # Cadastro
     if (selecao == 1):
         while True:
             rm = input("Digite o rm do aluno: ").split()
-            print(rm)
             while (rm in rmAlunos):
                 print("rm já existe!")
-                rm = input("Digite o rm do aluno: ")
+                rm = input("Digite o rm do aluno: ").split()
                 if (rm == ["0"]):
                     cadastro = False
                     break 
@@ -52,11 +50,10 @@ while True:
             else:
                 rmAlunos.append(rm)
                 serie = int(input("Digite a serie do aluno: ").split()[0])
-                while (serie < 1 or serie > 5):
+                while (serie < 2 or serie > 5):
                     print("Série inválida!")
                     serie = int(input("Digite a serie do aluno: ").split()[0])
-                serieAlunos.append(series[serie-1])
-
+                serieAlunos.append(series[serie-2])
     # Inscrição
     elif (selecao == 2):
         ...
