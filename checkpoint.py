@@ -1,10 +1,10 @@
-oficinasMatutino = (("Criar e contar histórias", "A língua de sinais"),
-("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais"),
-("Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística"),
-("A língua de sinais", "Expressão Artística", "Soletrando"))
+oficinasMatutino = [["Criar e contar histórias", "A língua de sinais"],
+["Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais"],
+["Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística"],
+["A língua de sinais", "Expressão Artística", "Soletrando"]]
 
-oficinasVespertino = (("O mundo da imaginação", "Criando Emojis"),
-("O corpo fala"), ("Leitura dramática"), ("Leitura dinâmica"))
+oficinasVespertino = [["O mundo da imaginação", "Criando Emojis"],
+["O corpo fala"], ["Leitura dramática"], ["Leitura dinâmica"]]
 
 
 series = ("2ª serie", "3ª serie", "4ª serie", "5ª serie")
@@ -81,7 +81,17 @@ while True:
                 
     # Inscrição
     elif (selecao == 2):
-        ...
+        rm = input("Insira o rm: ").strip()
+        while (rm not in rmAlunos):
+            print("Aluno não cadastrado... Favor procurar a coordenação do Fundamental I")
+            rm = input("Insira o rm: ").strip()
+        posRm = rmAlunos.index(rm)
+        serieDoAluno = serieAlunos[posRm]
+        posSerie = series.index(serieDoAluno)
+        for c in oficinasMatutino:
+            for l in oficinasMatutino[posSerie]:
+                print(l)
+            break
     # Listagem
     elif (selecao == 3):
         print(input("""Menu Listar inscrições
