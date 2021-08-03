@@ -2,9 +2,7 @@ oficinas = ("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A lí
 series = ("1ª serie", "2ª serie", "3ª serie", "4ª serie", "5ª serie")
 # Alunos
 rmAlunos = []
-nomeAlunos = []
 serieAlunos = []
-cursoAlunos = []
 # Variável de controle
 cadastro = True
 
@@ -38,7 +36,21 @@ while True:
     
     # Cadastro
     if (selecao == 1):
-        ...
+        while True:
+            rm = input("Digite o rm do aluno: ")
+            while (rm in rmAlunos):
+                print("rm já existe!")
+                rm = input("Digite o rm do aluno: ")
+            if (rm == 0):
+                cadastro = False
+                break 
+            rmAlunos.append(rm)
+            serie = int(input("Digite a serie do aluno: ").split()[0])
+            while (serie < 1 or serie > 5):
+                print("Série inválida!")
+                serie = int(input("Digite a serie do aluno: ").split()[0])
+            serieAlunos.append(series[serie-1])
+
     # Inscrição
     elif (selecao == 2):
         ...
@@ -46,4 +58,5 @@ while True:
     elif (selecao == 3):
         ...
     else:
+        print()
         break
