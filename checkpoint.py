@@ -117,20 +117,41 @@ while True:
                             cont += 1
                         break
                     else:
-                        print(f"1 - {l}")
-                        break
+                        for l in oficinasVespertino[posSerie]:
+                            if (c == oficinasVespertino[posSerie]):
+                                print(f"1 - {c}")
+                            break
+
             check = input("Você deseja vizualizar outro período?[S/N]: ").strip()[0].capitalize()
+            print(check)
             while (check not in "SN"):
                 print("Resposta inválida... (Sim ou Não)")
                 check = input("Você deseja vizualizar outro período?[S/N]: ").strip()[0].capitalize()
             if (check == "N"):
+                opt = int(input("Selecione o número da diciplina escolhida: "))
                 if (periodo == "M"):
-                    opt = int(input("Selecione o número da diciplina escolhida: "))
-                    oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
-                    print("Sucesso")
-                    print("Oficina adicionada")
-                    print(oficinasMatutino[posSerie][opt-1])
-                    print(oficinasAlunos)
+                    if (len(oficinasAlunos[posRm]) < 3):
+                        while(oficinasMatutino[posSerie][opt-1] in oficinasAlunos[posRm]):
+                            print("Aluno já está cadastrado nessa oficina... Favor selecionar outra")
+                            opt = int(input("Selecione o número da diciplina escolhida: "))
+                        oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
+                        print("Sucesso")
+                        print("Oficina adicionada")
+                        print(oficinasMatutino[posSerie][opt-1])
+                        print(oficinasAlunos)
+                    else:
+                        print("Cada aluno pode se inscrever no máximo em 3 oficinas")
+                else:
+                    if (len(oficinasAlunos[posRm]) < 3):
+                        while(oficinasVespertino[posSerie][opt-1] in oficinasAlunos[posRm]):
+                            print("Aluno já está cadastrado nessa oficina... Favor selecionar outra")
+                            opt = int(input("Selecione o número da diciplina escolhida: "))
+                        if (len([oficinasVespertino[posSerie]]) > 1):
+                            oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie][opt-1])
+                        else:
+                            oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie])
+                    else:
+                        print("Cada aluno pode se inscrever no máximo em 3 oficinas")
                 break
             
     # Listagem
