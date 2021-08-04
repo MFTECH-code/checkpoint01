@@ -1,14 +1,16 @@
-oficinasMatutino = [["Criar e contar histórias", "A língua de sinais"],
-["Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais"],
-["Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística"],
-["A língua de sinais", "Expressão Artística", "Soletrando"]]
+oficinasMatutino = [("Criar e contar histórias", "A língua de sinais"),
+("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais"),
+("Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística"),
+("A língua de sinais", "Expressão Artística", "Soletrando")]
 
-oficinasVespertino = [["O mundo da imaginação", "Criando Emojis"],
-["O corpo fala"], ["Leitura dramática"], ["Leitura dinâmica"]]
+oficinasVespertino = [("O mundo da imaginação", "Criando Emojis"),
+("O corpo fala"), ("Leitura dramática"), ("Leitura dinâmica")]
+
 
 
 series = ("2ª serie", "3ª serie", "4ª serie", "5ª serie")
 # Alunos
+oficinasAlunos = []
 rmAlunos = []
 serieAlunos = []
 nomeAlunos = []
@@ -78,6 +80,7 @@ while True:
                 serieAlunos.append(series[serie-2])
                 nome = input("Digite o nome do aluno: ").strip().capitalize()
                 nomeAlunos.append(nome)
+                oficinasAlunos.append([])
                 
     # Inscrição
     elif (selecao == 2):
@@ -86,12 +89,50 @@ while True:
             print("Aluno não cadastrado... Favor procurar a coordenação do Fundamental I")
             rm = input("Insira o rm: ").strip()
         posRm = rmAlunos.index(rm)
+        print(posRm)
         serieDoAluno = serieAlunos[posRm]
         posSerie = series.index(serieDoAluno)
-        for c in oficinasMatutino:
-            for l in oficinasMatutino[posSerie]:
-                print(l)
-            break
+
+        # Selecionar período da oficina que quer ver
+        while True:
+            periodo = input("Digite o período que deseja vizualizar: ").strip()[0].capitalize()
+            while (periodo not in "MVT"):
+                print("Período inválido... (Matutino ou Vespertino)")
+                periodo = input("Digite o período do aluno: ").strip()[0].capitalize()
+            if (periodo == "M"):
+                print("Oficinas do perído matutino")
+                for c in oficinasMatutino:
+                    cont = 1
+                    for l in oficinasMatutino[posSerie]:
+                        print(f"{cont} - {l}")
+                        cont += 1
+                    break
+            elif (periodo == "V" or periodo == "T"):
+                print("Oficinas do perído vespertino")
+                for c in oficinasVespertino:
+                    cont = 1
+                    if (posSerie == 0):
+                        for l in oficinasVespertino[posSerie]:
+                            print(f"{cont} - {l}")
+                            cont += 1
+                        break
+                    else:
+                        print(f"1 - {l}")
+                        break
+            check = input("Você deseja vizualizar outro período?[S/N]: ").strip()[0].capitalize()
+            while (check not in "SN"):
+                print("Resposta inválida... (Sim ou Não)")
+                check = input("Você deseja vizualizar outro período?[S/N]: ").strip()[0].capitalize()
+            if (check == "N"):
+                if (periodo == "M"):
+                    opt = int(input("Selecione o número da diciplina escolhida: "))
+                    oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
+                    print("Sucesso")
+                    print("Oficina adicionada")
+                    print(oficinasMatutino[posSerie][opt-1])
+                    print(oficinasAlunos)
+                break
+            
     # Listagem
     elif (selecao == 3):
         print(input("""Menu Listar inscrições
@@ -99,8 +140,4 @@ while True:
 2 - Listar por oficina (ordem alfabética)"""))
         ...
     else:
-        print(rmAlunos)
-        print(serieAlunos)
-        print(nomeAlunos)
-        print(periodoAlunos)
         break
