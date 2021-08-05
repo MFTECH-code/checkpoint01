@@ -7,3 +7,5 @@ lista2 = [0]
 for i in range(0, 10):
     lista2[0] += 1
     print(lista2)
+
+print(type("String") == type([]))

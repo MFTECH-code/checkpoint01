@@ -1,6 +1,6 @@
 # Criar e contar histórias -> index 0... Criando e recriando com emojis -> index 9
 oficinas = ("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística", "Soletrando", "Leitura dramática", "O corpo fala", "O mundo da imaginação", "Leitura dinâmica", "Criando e recriando com emojis")
-oficinasLotação = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+lotacaoOficinas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
 oficinasMatutino = [(oficinas[0], oficinas[2]),
@@ -136,12 +136,18 @@ while True:
                         while(oficinasMatutino[posSerie][opt-1] in oficinasAlunos[posRm]):
                             print("Aluno já está cadastrado nessa oficina... Favor selecionar outra")
                             opt = int(input("Selecione o número da diciplina escolhida: "))
-                        oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
                         # Contador da oficina escolhida
                         oficinaEscolhida = oficinasMatutino[posSerie][opt-1]
+                        oficinaPos = oficinas.index(oficinaEscolhida)
 
-                        print("Sucesso")
-                        print("Oficina adicionada")
+                        if (lotacaoOficinas[oficinaPos] < 10):
+                            lotacaoOficinas[oficinaPos] += 1
+                            oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
+                            print("Sucesso")
+                            print("Oficina adicionada")
+                        else:
+                            print("Oficina já está lotada! MÁXIMO 10 ALUNOS")
+
                     else:
                         print("Cada aluno pode se inscrever no máximo em 3 oficinas")
                 else:
@@ -149,10 +155,40 @@ while True:
                         while(oficinasVespertino[posSerie][opt-1] in oficinasAlunos[posRm]):
                             print("Aluno já está cadastrado nessa oficina... Favor selecionar outra")
                             opt = int(input("Selecione o número da diciplina escolhida: "))
-                        if (len([oficinasVespertino[posSerie]]) > 1):
-                            oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie][opt-1])
+                        if (type(oficinasVespertino[posSerie]) != type("string")):
+                            #-----
+                            # Contador da oficina escolhida
+                            oficinaEscolhida = oficinasVespertino[posSerie][opt-1]
+                            oficinaPos = oficinas.index(oficinaEscolhida)
+
+                            if (lotacaoOficinas[oficinaPos] < 10):
+                                lotacaoOficinas[oficinaPos] += 1
+                                oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie][opt-1])
+                                print("Sucesso")
+                                print("Oficina adicionada")
+                            else:
+                                print("Oficina já está lotada! MÁXIMO 10 ALUNOS")
+                            
+                            #-----
                         else:
-                            oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie])
+                            
+                            if (oficinasVespertino[posSerie] in oficinasAlunos[posRm]):
+                                print("Aluno já está cadastrado nessa oficina...")
+                                break
+                            #-----
+                            # Contador da oficina escolhida
+                            oficinaEscolhida = oficinasVespertino[posSerie]
+                            oficinaPos = oficinas.index(oficinaEscolhida)
+
+                            if (lotacaoOficinas[oficinaPos] < 10):
+                                lotacaoOficinas[oficinaPos] += 1
+                                oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie])
+                                print("Sucesso")
+                                print("Oficina adicionada")
+                            else:
+                                print("Oficina já está lotada! MÁXIMO 10 ALUNOS")
+                            #-----
+                            
                     else:
                         print("Cada aluno pode se inscrever no máximo em 3 oficinas")
                 break
