@@ -1,11 +1,15 @@
-oficinasMatutino = [("Criar e contar histórias", "A língua de sinais"),
-("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais"),
-("Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística"),
-("A língua de sinais", "Expressão Artística", "Soletrando")]
+# Criar e contar histórias -> index 0... Criando e recriando com emojis -> index 9
+oficinas = ("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística", "Soletrando", "Leitura dramática", "O corpo fala", "O mundo da imaginação", "Leitura dinâmica", "Criando e recriando com emojis")
+oficinasLotação = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-oficinasVespertino = [("O mundo da imaginação", "Criando Emojis"),
-("O corpo fala"), ("Leitura dramática"), ("Leitura dinâmica")]
 
+oficinasMatutino = [(oficinas[0], oficinas[2]),
+(oficinas[0], oficinas[1], oficinas[2]),
+(oficinas[1], oficinas[2], oficinas[3]),
+(oficinas[2], oficinas[3], oficinas[4])]
+
+oficinasVespertino = [(oficinas[7], oficinas[9]),
+(oficinas[6]), (oficinas[5]), (oficinas[8])]
 
 
 series = ("2ª serie", "3ª serie", "4ª serie", "5ª serie")
@@ -133,6 +137,9 @@ while True:
                             print("Aluno já está cadastrado nessa oficina... Favor selecionar outra")
                             opt = int(input("Selecione o número da diciplina escolhida: "))
                         oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
+                        # Contador da oficina escolhida
+                        oficinaEscolhida = oficinasMatutino[posSerie][opt-1]
+
                         print("Sucesso")
                         print("Oficina adicionada")
                     else:
