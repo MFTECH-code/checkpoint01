@@ -89,7 +89,6 @@ while True:
             print("Aluno não cadastrado... Favor procurar a coordenação do Fundamental I")
             rm = input("Insira o rm: ").strip()
         posRm = rmAlunos.index(rm)
-        print(posRm)
         serieDoAluno = serieAlunos[posRm]
         posSerie = series.index(serieDoAluno)
 
@@ -123,7 +122,6 @@ while True:
                             break
 
             check = input("Você deseja vizualizar outro período?[S/N]: ").strip()[0].capitalize()
-            print(check)
             while (check not in "SN"):
                 print("Resposta inválida... (Sim ou Não)")
                 check = input("Você deseja vizualizar outro período?[S/N]: ").strip()[0].capitalize()
@@ -137,8 +135,6 @@ while True:
                         oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
                         print("Sucesso")
                         print("Oficina adicionada")
-                        print(oficinasMatutino[posSerie][opt-1])
-                        print(oficinasAlunos)
                     else:
                         print("Cada aluno pode se inscrever no máximo em 3 oficinas")
                 else:
@@ -156,9 +152,10 @@ while True:
             
     # Listagem
     elif (selecao == 3):
-        print(input("""Menu Listar inscrições
-1 - Listar por aluno (ordem alfabética de nome)
-2 - Listar por oficina (ordem alfabética)"""))
-        ...
+        print("Listagem de alunos")
+        for i in range(len(rmAlunos)):
+            print(f"Nome do aluno: {nomeAlunos[i]}")
+            print(f"Oficinas cadastrado: {oficinasAlunos[i]}")
+            print("-----------------------------------------")
     else:
         break
