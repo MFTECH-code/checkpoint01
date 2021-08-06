@@ -21,6 +21,11 @@ nomeAlunos = []
 
 # Variável de controle
 cadastro = True
+totalAlunos = 0
+
+# Listas filtradas
+filtro_aluno = []
+filtro_oficina = []
 
 def periodo(lista):
     periodo = input("Digite o período do aluno: ").strip()[0]
@@ -35,10 +40,53 @@ def periodo(lista):
             lista.append(periodo)
 
 
+def imprimir_listagem(filtro):
+    for i in range(0, len(filtro)):
+        print(f"NOME: {filtro[i][0]}")
+        print(f"RM: {filtro[i][1]}")
+        print(f"SERIE: {filtro[i][2]}")
+        print("Oficinas cadastrado: ")
+        for l in range(0, len(filtro[i][3])):
+            print(f"{l+1} - {filtro[i][3][l]}")
+
+def filtrar_alunos(filtro):
+    # Puxar os alunos de ordem alfabética
+    lista_ordenada = sorted(nomeAlunos)
+    
+    # Primeiro encher as posições do filtro
+    for i in range(0, len(filtro)):
+        # Pegando posições raíz
+        pos_aluno = nomeAlunos.index(lista_ordenada[i])
+
+        # Colocando nomes
+        filtro[i].insert(0, lista_ordenada[i])
+        # Colocando RMs
+        filtro[i].insert(1, rmAlunos[pos_aluno])
+        # Colocando serie 
+        filtro[i].insert(2, serieAlunos[pos_aluno])
+        # Colocando Oficinas
+        filtro[i].insert(3, oficinasAlunos[pos_aluno])
+    return filtro
+
+def sem_filtro(filtro):
+    for i in range(0, len(filtro)):
+        # Colocando nomes
+        filtro[i].insert(0, nomeAlunos[i])
+        # Colocando RMs
+        filtro[i].insert(1, rmAlunos[i])
+        # Colocando serie 
+        filtro[i].insert(2, serieAlunos[i])
+        # Colocando Oficinas
+        filtro[i].insert(3, oficinasAlunos[i])
+    return filtro
+
+def lotar_lista(lista):
+    lista.append([])
+
 def filtro():
     print("""Listagem de oficina e alunos
 1 - Listar por aluno (Ordem Alfabética de nome)
-2 - Listar por oficina (Ordem Alfabética)""")
+2 - Listar sem filtro""")
     filtro = int(input("Digite o tipo de filtragem desejada: "))
     while (filtro < 1 or filtro > 2):
         print("Selecione uma das opções mostradas acima...")
@@ -96,6 +144,8 @@ while True:
                 nome = input("Digite o nome do aluno: ").strip().capitalize()
                 nomeAlunos.append(nome)
                 oficinasAlunos.append([])
+                lotar_lista(filtro_aluno)
+                totalAlunos += 1
                 
     # Inscrição
     elif (selecao == 2):
@@ -207,8 +257,15 @@ while True:
     # Listagem
     elif (selecao == 3):
         # Menu de seleção de listagem
-        filtro = filtro()
+        filtro_listagem = filtro()
         # Criar uma matriz filtrada comforme a seleção
-        # Imprimir o resultado
+        if (filtro_listagem == 1):
+            # Construindo matriz com dados dos alunos em ordem alfabética
+            filtro_aluno = filtrar_alunos(filtro_aluno)
+            # Imprimir o resultado
+            imprimir_listagem(filtro_aluno)
+        else:
+            filtro_aluno = sem_filtro(filtro_aluno)
+            imprimir_listagem(filtro_aluno)
     else:
         break
