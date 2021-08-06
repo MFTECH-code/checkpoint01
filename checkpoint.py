@@ -34,6 +34,17 @@ def periodo(lista):
             periodo = "Vespertino"
             lista.append(periodo)
 
+
+def filtro():
+    print("""Listagem de oficina e alunos
+1 - Listar por aluno (Ordem Alfabética de nome)
+2 - Listar por oficina (Ordem Alfabética)""")
+    filtro = int(input("Digite o tipo de filtragem desejada: "))
+    while (filtro < 1 or filtro > 2):
+        print("Selecione uma das opções mostradas acima...")
+        filtro = int(input("Digite o tipo de filtragem desejada: "))
+    return filtro
+
 def menu():
     print("Evento Literário -- Colégio Nova Esperança")
     print("Favor selecionar uma opção abaixo, digitando o número correspondente:")
@@ -195,10 +206,9 @@ while True:
             
     # Listagem
     elif (selecao == 3):
-        print("Listagem de alunos")
-        for i in range(len(rmAlunos)):
-            print(f"Nome do aluno: {nomeAlunos[i]}")
-            print(f"Oficinas cadastrado: {oficinasAlunos[i]}")
-            print("-----------------------------------------")
+        # Menu de seleção de listagem
+        filtro = filtro()
+        # Criar uma matriz filtrada comforme a seleção
+        # Imprimir o resultado
     else:
         break
