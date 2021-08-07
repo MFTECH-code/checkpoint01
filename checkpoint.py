@@ -1,17 +1,21 @@
+from time import sleep
+
+# Tupla de oficinals
 # Criar e contar histórias -> index 0... Criando e recriando com emojis -> index 9
 oficinas = ("Criar e contar histórias", "Teatro: Luz, Câmera e Ação", "A língua de sinais", "Expressão Artística", "Soletrando", "Leitura dramática", "O corpo fala", "O mundo da imaginação", "Leitura dinâmica", "Criando e recriando com emojis")
+# Lista de contadores de alunos em oficinas
 lotacaoOficinas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-
+# Matriz da grade das oficinas da manhã
 oficinasMatutino = [(oficinas[0], oficinas[2]),
 (oficinas[0], oficinas[1], oficinas[2]),
 (oficinas[1], oficinas[2], oficinas[3]),
 (oficinas[2], oficinas[3], oficinas[4])]
-
+# Matriz da grade das oficinas da tarde
 oficinasVespertino = [(oficinas[7], oficinas[9]),
 (oficinas[6]), (oficinas[5]), (oficinas[8])]
 
-
+# Tupla de series
 series = ("2ª serie", "3ª serie", "4ª serie", "5ª serie")
 # Alunos
 oficinasAlunos = []
@@ -27,27 +31,20 @@ totalAlunos = 0
 filtro_aluno = []
 filtro_oficina = []
 
-def periodo(lista):
-    periodo = input("Digite o período do aluno: ").strip()[0]
-    while (periodo not in "MVT"):
-        print("Período inválido... (Matutino ou Vespertino)")
-        periodo = input("Digite o período do aluno: ").strip()[0]
-        if (periodo == "M"):
-            periodo = "Matutino"
-            lista.append(periodo)
-        elif (periodo == "V" or periodo == "T"):
-            periodo = "Vespertino"
-            lista.append(periodo)
-
 
 def imprimir_listagem(filtro):
     for i in range(0, len(filtro)):
         print(f"NOME: {filtro[i][0]}")
         print(f"RM: {filtro[i][1]}")
         print(f"SERIE: {filtro[i][2]}")
-        print("Oficinas cadastrado: ")
-        for l in range(0, len(filtro[i][3])):
-            print(f"{l+1} - {filtro[i][3][l]}")
+        if (len(filtro[i][3]) > 0):
+            print("OFICINAS ADICIONADAS: ")
+            for l in range(0, len(filtro[i][3])):
+                print(f"{l+1} - {filtro[i][3][l]}")
+            print("##########################################")
+        else:
+            print("NENHUMA OFICINA ADICIONADA")
+            print("##########################################")
 
 def filtrar_alunos(filtro):
     # Puxar os alunos de ordem alfabética
@@ -80,6 +77,7 @@ def sem_filtro(filtro):
         filtro[i].insert(3, oficinasAlunos[i])
     return filtro
 
+# Função para adicionar lista dentro de vetor
 def lotar_lista(lista):
     lista.append([])
 
@@ -94,7 +92,7 @@ def filtro():
     return filtro
 
 def menu():
-    print("Evento Literário -- Colégio Nova Esperança")
+    print("COLÉGIO NOVA ESPERANÇA - EVENTO LITERÁRIO")
     print("Favor selecionar uma opção abaixo, digitando o número correspondente:")
 
     if (cadastro):
@@ -106,6 +104,7 @@ def menu():
         while(selecao < 1 or selecao > 4):
             print("Opção inválida...")
             selecao = int(input("Digite a opção desejada: "))
+        print("##########################################")
         return selecao
     else:
         print("""1 - Cadastrar (NÃO SELECIONÁVEL)
@@ -116,13 +115,17 @@ def menu():
         while(selecao < 2 or selecao > 4):
             print("Opção inválida...")
             selecao = int(input("Digite a opção desejada: "))
+        print("##########################################")
         return selecao
-
+print("##########################################")
 while True:
     selecao = menu()
+    sleep(1)
     
     # Cadastro
     if (selecao == 1):
+
+        print("CADASTRO DE ALUNOS")
         while True:
             rm = input("Digite o rm do aluno: ").strip()
             while (rm in rmAlunos):
@@ -130,25 +133,31 @@ while True:
                 rm = input("Digite o rm do aluno: ").strip()
                 if (rm == "0"):
                     cadastro = False
+                    sleep(1)
                     break 
             if (rm == "0"):
                 cadastro = False
+                sleep(1)
                 break
             else:
                 rmAlunos.append(rm)
+                nome = input("Digite o nome do aluno: ").strip().capitalize()
+                nomeAlunos.append(nome)
                 serie = int(input("Digite a serie do aluno: ").strip()[0])
                 while (serie < 2 or serie > 5):
                     print("Série inválida!")
                     serie = int(input("Digite a serie do aluno: ").strip()[0])
                 serieAlunos.append(series[serie-2])
-                nome = input("Digite o nome do aluno: ").strip().capitalize()
-                nomeAlunos.append(nome)
                 oficinasAlunos.append([])
                 lotar_lista(filtro_aluno)
                 totalAlunos += 1
+                print("Aluno cadastrado!")
+                sleep(1)
+                print("##########################################")
                 
     # Inscrição
     elif (selecao == 2):
+        print("INSCRIÇÃO DE ALUNOS EM OFICINAS")
         rm = input("Insira o rm: ").strip()
         while (rm not in rmAlunos):
             print("Aluno não cadastrado... Favor procurar a coordenação do Fundamental I")
@@ -170,6 +179,7 @@ while True:
                     for l in oficinasMatutino[posSerie]:
                         print(f"{cont} - {l}")
                         cont += 1
+                    sleep(1)
                     break
             elif (periodo == "V" or periodo == "T"):
                 print("Oficinas do perído vespertino")
@@ -179,11 +189,13 @@ while True:
                         for l in oficinasVespertino[posSerie]:
                             print(f"{cont} - {l}")
                             cont += 1
+                        sleep(1)
                         break
                     else:
                         for l in oficinasVespertino[posSerie]:
                             if (c == oficinasVespertino[posSerie]):
                                 print(f"1 - {c}")
+                            sleep(1)
                             break
 
             check = input("Você deseja vizualizar outro período?[S/N]: ").strip()[0].capitalize()
@@ -204,13 +216,15 @@ while True:
                         if (lotacaoOficinas[oficinaPos] < 10):
                             lotacaoOficinas[oficinaPos] += 1
                             oficinasAlunos[posRm].insert(posRm, oficinasMatutino[posSerie][opt-1])
-                            print("Sucesso")
-                            print("Oficina adicionada")
+                            print("OFICINA ADICIONADA COM SUCESSO!")
+                            sleep(1)
                         else:
-                            print("Oficina já está lotada! MÁXIMO 10 ALUNOS")
+                            print("OFICINA LOTADA (QTD MÁX 10 ALUNOS)")
+                            sleep(1)
 
                     else:
-                        print("Cada aluno pode se inscrever no máximo em 3 oficinas")
+                        print("ALUNO ATINGIU A QUANTIDADE MÁXIMA DE OFICINAS QUE PODE SE CADASTRAR (LIMITE 3 OFICINAS)")
+                        sleep(1)
                 else:
                     if (len(oficinasAlunos[posRm]) < 3):
                         while(oficinasVespertino[posSerie][opt-1] in oficinasAlunos[posRm]):
@@ -225,16 +239,18 @@ while True:
                             if (lotacaoOficinas[oficinaPos] < 10):
                                 lotacaoOficinas[oficinaPos] += 1
                                 oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie][opt-1])
-                                print("Sucesso")
-                                print("Oficina adicionada")
+                                print("OFICINA ADICIONADA COM SUCESSO!")
+                                sleep(1)
                             else:
-                                print("Oficina já está lotada! MÁXIMO 10 ALUNOS")
+                                print("OFICINA LOTADA (QTD MÁX 10 ALUNOS)")
+                                sleep(1)
                             
                             #-----
                         else:
                             
                             if (oficinasVespertino[posSerie] in oficinasAlunos[posRm]):
-                                print("Aluno já está cadastrado nessa oficina...")
+                                print("ALUNO ATINGIU A QUANTIDADE MÁXIMA DE OFICINAS QUE PODE SE CADASTRAR (LIMITE 3 OFICINAS)")
+                                sleep(1)
                                 break
                             #-----
                             # Contador da oficina escolhida
@@ -244,14 +260,16 @@ while True:
                             if (lotacaoOficinas[oficinaPos] < 10):
                                 lotacaoOficinas[oficinaPos] += 1
                                 oficinasAlunos[posRm].insert(posRm, oficinasVespertino[posSerie])
-                                print("Sucesso")
-                                print("Oficina adicionada")
+                                print("OFICINA ADICIONADA COM SUCESSO!")
+                                sleep(1)
                             else:
-                                print("Oficina já está lotada! MÁXIMO 10 ALUNOS")
+                                print("OFICINA LOTADA (QTD MÁX 10 ALUNOS)")
+                                sleep(1)
                             #-----
                             
                     else:
-                        print("Cada aluno pode se inscrever no máximo em 3 oficinas")
+                        print("ALUNO ATINGIU A QUANTIDADE MÁXIMA DE OFICINAS QUE PODE SE CADASTRAR (LIMITE 3 OFICINAS)")
+                        sleep(1)
                 break
             
     # Listagem
@@ -260,12 +278,16 @@ while True:
         filtro_listagem = filtro()
         # Criar uma matriz filtrada comforme a seleção
         if (filtro_listagem == 1):
+            print("LISTAGEM DE ALUNOS EM ORDEM ALFABÉTICA")
             # Construindo matriz com dados dos alunos em ordem alfabética
             filtro_aluno = filtrar_alunos(filtro_aluno)
             # Imprimir o resultado
             imprimir_listagem(filtro_aluno)
+            sleep(2)
         else:
+            print("LISTAGEM SEM FILTRO")
             filtro_aluno = sem_filtro(filtro_aluno)
             imprimir_listagem(filtro_aluno)
+            sleep(2)
     else:
         break
